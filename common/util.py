@@ -19,8 +19,9 @@ def requests_get(url, module_name="未指定", headers=None, params=None, use_pr
     if headers is None:
         headers = {}
     random_ua = _get_random_useragent()
-    headers.setdefault('User-Agent', random_ua)
-    headers.setdefault('user-agent', random_ua)
+    if not url.startswith("https://api.telegram.org"):
+        headers.setdefault('User-Agent', random_ua)
+        headers.setdefault('user-agent', random_ua)
     proxies = _get_proxy() if use_proxy else None
     try:
         response = requests.get(url, headers=headers, params=params, proxies=proxies, timeout=10, verify=False)
@@ -34,8 +35,9 @@ def requests_post(url, module_name="未指定", headers=None, params=None, data=
     if headers is None:
         headers = {}
     random_ua = _get_random_useragent()
-    headers.setdefault('User-Agent', random_ua)
-    headers.setdefault('user-agent', random_ua)
+    if not url.startswith("https://api.telegram.org"):
+        headers.setdefault('User-Agent', random_ua)
+        headers.setdefault('user-agent', random_ua)
     proxies = _get_proxy() if use_proxy else None
     try:
         response = requests.post(url, headers=headers, params=params, data=data, json=json, proxies=proxies, timeout=10, verify=False)
